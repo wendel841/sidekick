@@ -1,2 +1,25 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.sentence:hover {
+  background: #2e2e2e;
+  cursor: pointer;
+}
 
+.text {
+  &.deleted {
+    color: #ff2c2f;
+  }
+  &.new {
+    color: #3d8026;;
+  }
+  &.old {
+    color: #ffeb39;
+  }
+  &.deleted:hover, &.new:hover {
+    cursor: pointer;
+  }
+}
+
+.well {
+  background: #000;
+  border: 1px solid #333;
+  text-align: justify;
+}

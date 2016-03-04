@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,14 +5,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<link rel="icon" href="../../favicon.ico">
+	<meta name="description" content="Sidekick test task">
+	<meta name="author" content="Ivan Popov">
 
-	<title>Starter Template for Bootstrap</title>
+	<title>TextDiff</title>
 
-	<!-- Bootstrap core CSS -->
 	<link href="{{ asset('assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -33,7 +31,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">ivan</a>
+			<a class="navbar-brand" href="#">Ivan Popov :: TextDiff</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
@@ -44,17 +42,11 @@
 </nav>
 
 <div class="container">
-
 	@yield('content')
-
 </div><!-- /.container -->
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>--}}
 <script>window.jQuery || document.write('<script src="{{ asset('assets/jquery/dist/jquery.min.js') }}"><\/script>')</script>
 <script src="{{ asset('assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/all.js') }}"></script>
 </body>
 </html>

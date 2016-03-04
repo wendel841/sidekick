@@ -1,0 +1,27 @@
+.sentence:hover {
+  background: #2e2e2e;
+  cursor: pointer;
+}
+
+.text.deleted {
+  color: #ff2c2f;
+}
+
+.text.new {
+  color: #3d8026;
+}
+
+.text.old {
+  color: #ffeb39;
+}
+
+.text.deleted:hover,
+.text.new:hover {
+  cursor: pointer;
+}
+
+.well {
+  background: #000;
+  border: 1px solid #333;
+  text-align: justify;
+}
