@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Support\Str;
 
 class TextDiff implements Renderable
 {
@@ -69,10 +70,10 @@ class TextDiff implements Renderable
                 if ($newText = array_get($k, 'i')) {
                     $originalText = (empty($k['d'])) ? '[empty]' : implode(' ', $k['d']);
                     $newText = implode(' ', $newText);
-                    $content .= '<span class="text new" data-original-text="' . $originalText . '">' . $newText . '</span> ';
+                    $content .= '<span class="new" data-original-text="' . $originalText . '">' . $newText . '</span> ';
                 }
             } else {
-                $content .= '<span class="text old">' . $k . '</span> ';
+                $content .= '<span class="">' . $k . '</span> ';
             }
         }
 
@@ -130,10 +131,16 @@ class TextDiff implements Renderable
         $array = explode('. ', $content);
 
         $array = array_map(function ($item) {
-            return sprintf('<span class="sentence">%s</span>', $item);
+            $class = ['sentence'];
+
+            if (Str::contains($item, ['new"'])) {
+                $class[] = 'changed';
+            }
+
+            return sprintf('<span class="%s">%s</span>', implode(' ', $class), $item);
         }, $array);
 
-        $content = implode('<span class="text old">.</span> ', $array);
+        $content = implode('. ', $array);
 
         return $content;
     }

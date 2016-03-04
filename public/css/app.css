@@ -3,25 +3,21 @@
   cursor: pointer;
 }
 
-.text.deleted {
-  color: #ff2c2f;
-}
-
-.text.new {
-  color: #3d8026;
-}
-
-.text.old {
+.sentence.changed {
   color: #ffeb39;
 }
 
-.text.deleted:hover,
-.text.new:hover {
-  cursor: pointer;
+.sentence .new {
+  color: #3d8026;
+}
+
+.sentence .deleted {
+  color: #ff2c2f;
 }
 
 .well {
   background: #000;
   border: 1px solid #333;
+  color: white;
   text-align: justify;
 }

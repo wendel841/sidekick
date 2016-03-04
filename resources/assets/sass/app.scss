@@ -1,25 +1,22 @@
-.sentence:hover {
-  background: #2e2e2e;
-  cursor: pointer;
-}
-
-.text {
-  &.deleted {
-    color: #ff2c2f;
+.sentence {
+  &:hover {
+    background: #2e2e2e;
+    cursor: pointer;
   }
-  &.new {
-    color: #3d8026;;
-  }
-  &.old {
+  &.changed {
     color: #ffeb39;
   }
-  &.deleted:hover, &.new:hover {
-    cursor: pointer;
+  .new {
+    color: #3d8026;;
+  }
+  .deleted {
+    color: #ff2c2f;
   }
 }
 
 .well {
   background: #000;
   border: 1px solid #333;
+  color: white;
   text-align: justify;
 }
