@@ -7,11 +7,11 @@
   color: #ffeb39;
 }
 
-.sentence .new {
+.sentence.new {
   color: #3d8026;
 }
 
-.sentence .deleted {
+.sentence.deleted {
   color: #ff2c2f;
 }
 

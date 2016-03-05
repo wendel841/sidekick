@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Support\Str;
 
 class TextDiff implements Renderable
 {
@@ -50,7 +49,6 @@ class TextDiff implements Renderable
         );
 
         $content = $this->renderHTML($diff);
-        $content = $this->splitIntoSentences($content);
 
         return $content;
     }
@@ -63,21 +61,29 @@ class TextDiff implements Renderable
      */
     protected function renderHTML(array $diff = [])
     {
-        $content = '';
+        $content = [];
 
-        foreach ($diff as $k) {
-            if (is_array($k)) {
-                if ($newText = array_get($k, 'i')) {
-                    $originalText = (empty($k['d'])) ? '[empty]' : implode(' ', $k['d']);
-                    $newText = implode(' ', $newText);
-                    $content .= '<span class="new" data-original-text="' . $originalText . '">' . $newText . '</span> ';
+        foreach ($diff as $item) {
+            if (is_array($item)) {
+                $deleted = array_get($item, 'd', []);
+                $inserted = array_get($item, 'i', []);
+
+                $countDeleted = count($deleted);
+                $countInsrted = count($inserted);
+
+                if ($countDeleted && $countInsrted) {
+                    $content[] = '<span class="sentence changed" data-original-text="' . $this->implode($deleted) . '">' . $this->implode($inserted) . '</span>';
+                } elseif ($countDeleted) {
+                    $content[] = '<span class="sentence deleted">' . $this->implode($deleted) . '</span>';
+                } elseif ($countInsrted) {
+                    $content[] = '<span class="sentence new">' . $this->implode($inserted) . '</span>';
                 }
             } else {
-                $content .= '<span class="">' . $k . '</span> ';
+                $content[] = '<span class="sentence">' . $item . '</span>';
             }
         }
 
-        return $content;
+        return implode(' ', $content);
     }
 
     /**
@@ -119,44 +125,16 @@ class TextDiff implements Renderable
         return $result;
     }
 
-    /**
-     * Разбивает текст на предложения.
-     *
-     * @param $content
-     * @return mixed|string
-     */
-    protected function splitIntoSentences($content)
+    protected function splitText($text, $delimiter = "/(?<=[.?!])\s+(?=[a-z])/i")
     {
-        $content = str_replace('.</span>', '</span>.', $content);
-        $array = explode('. ', $content);
-
-        $array = array_map(function ($item) {
-            $class = ['sentence'];
-
-            if (Str::contains($item, ['new"'])) {
-                $class[] = 'changed';
-            }
-
-            return sprintf('<span class="%s">%s</span>', implode(' ', $class), $item);
-        }, $array);
-
-        $content = implode('. ', $array);
-
-        return $content;
-    }
-
-    /**
-     * Разбивает текст на слова
-     *
-     * @param $text
-     * @param string $delimiter
-     * @return array
-     */
-    protected function splitText($text, $delimiter = '\s')
-    {
-        $result = preg_split("/[{$delimiter}]+/", $text);
+        $result = preg_split($delimiter, $text);
 
         return $result;
+    }
+
+    protected function implode(array $content, $delimiter = ' ')
+    {
+        return implode($delimiter, $content);
     }
 
     public static function factory($textFrom, $textTo)
